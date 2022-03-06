@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  dt.api:
-    image: ${DOCKER_REGISTRY-}dtapi
+  api:
+    image: ${DOCKER_REGISTRY-}api
     build:
       context: .
       dockerfile: DT.Api/Dockerfile
@@ -17,8 +17,8 @@ services:
     environment:
       DEBUG: 'true'
 
-  dt.web:
-    image: ${DOCKER_REGISTRY-}dtweb
+  web:
+    image: ${DOCKER_REGISTRY-}web
     build:
       context: .
       dockerfile: DT.Web/Dockerfile
