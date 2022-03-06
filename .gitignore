@@ -1,0 +1,18 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/DT.Api/bin/Debug/net6.0
+/DT.Api/obj/Debug/net6.0
+/DT.Api/obj
+/DT.Data/obj
+/DT.Domain/bin/Debug/net6.0
+/DT.Data/bin/Debug/net6.0
+/DT.Domain/obj
+/DT.Services/bin/Debug/net6.0
+/DT.Services/obj
+/DT.Web/bin/Debug/net6.0
+/DT.Web/obj
+/obj
+/bin/Debug

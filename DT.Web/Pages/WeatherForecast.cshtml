@@ -1,0 +1,70 @@
+﻿@page
+@model DT.Web.Pages.WeatherForecastModel
+@{
+    ViewData["Title"] = "Weather Forecast";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="d-flex flex-row-reverse">
+    <a class="btn btn-primary" asp-area="" asp-page="/WeatherForecastForm">Add</a>
+</div>
+
+
+<table class="table" id="main-table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Summary</th>
+            <th scope="col">Date</th>
+            <th scope="col">Celsius</th>
+            <th scope="col">Fahrenheit</th>
+        </tr>
+    </thead>
+</table>
+
+<script>
+    fetch('http://localhost:5000/api/WeatherForecast')
+     .then(response => response.json())
+     .then(data => {
+         if (data instanceof Array) {
+
+             let index = 1;
+             const table = document.getElementById('main-table');
+
+             data.forEach(item => {
+
+                let tbody = document.createElement('TBODY');
+                table.appendChild(tbody);
+
+                let tr = document.createElement('TR');
+                tbody.appendChild(tr);
+
+                let th = document.createElement('TH');
+                tr.appendChild(th);
+
+                let td1 = document.createElement('TD');
+                tr.appendChild(td1);
+
+                let td2 = document.createElement('TD');
+                tr.appendChild(td2);
+
+                let td3 = document.createElement('TD');
+                tr.appendChild(td3);
+
+                let td4 = document.createElement('TD');
+                tr.appendChild(td4);
+
+                th.setAttribute('scope', 'row');
+                th.innerText = index;
+
+                // 2022-03-05T16:32:53.2052316+02:00
+                td1.innerText = item.summary;
+                td2.innerText = item.date;
+                td3.innerText = item.temperatureC;
+                td4.innerText = item.temperatureF;
+                index = index + 1;
+             });
+         }
+     });
+</script>

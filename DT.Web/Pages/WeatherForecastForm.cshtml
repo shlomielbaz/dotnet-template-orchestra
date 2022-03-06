@@ -1,0 +1,46 @@
+﻿@page
+@model DT.Web.Pages.WeatherForecastFormModel
+@{
+    ViewData["Title"] = "Add Weather Forecast";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<form onsubmit="return add(event)" method="post">
+    <div class="mb-3">
+        <label for="summary-el" class="form-label">Summary</label>
+        <input type="text" class="form-control" name="summary" id="summary-el" aria-describedby="summary-help">
+        <div id="summary-help" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="celsius-el" class="form-label">Celsius</label>
+        <input type="number" class="form-control" name="celsius" id="celsius-el" aria-describedby="celsius-help">
+        <div id="celsius-help" class="form-text"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" asp-area="" asp-page="/WeatherForecast">Cancel</a>
+</form>
+
+
+<script>
+    function add(e) {
+        e.preventDefault();
+
+
+        fetch('http://localhost:5000/api/WeatherForecast', {
+            method: 'POST',
+            body: JSON.stringify({
+                TemperatureC: e.target[1].value,
+                Summary: e.target[0].value
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        }).then(() => {
+             location.href = '/WeatherForecast';
+         });
+
+        return false
+    }
+</script>
