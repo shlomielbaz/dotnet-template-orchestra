@@ -16,3 +16,5 @@
 /DT.Web/obj
 /obj
 /bin/Debug
+/DT.Utils/obj
+/DT.Utils/bin/Debug/net6.0

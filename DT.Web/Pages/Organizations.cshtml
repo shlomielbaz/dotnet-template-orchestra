@@ -1,0 +1,90 @@
+﻿@page
+@model DT.Web.Pages.OrganizationsModel
+@{
+    ViewData["Title"] = "Organization List";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="d-flex flex-row-reverse">
+    <a class="btn btn-primary" asp-area="" asp-page="/organizationform">Add</a>
+</div>
+ 
+<table class="table" id="main-table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+</table>
+
+<script>
+    fetch('http://localhost:5000/api/organizations')
+     .then(response => response.json())
+     .then(data => {
+         if (data instanceof Array) {
+
+             let index = 1;
+             const table = document.getElementById('main-table');
+
+             data.forEach(item => {
+
+                let tbody = document.createElement('TBODY');
+                table.appendChild(tbody);
+
+                let tr = document.createElement('TR');
+                tbody.appendChild(tr);
+
+                let th = document.createElement('TH');
+                tr.appendChild(th);
+
+                let td1 = document.createElement('TD');
+                tr.appendChild(td1);
+
+                 let td2 = document.createElement('TD');
+                tr.appendChild(td2);
+
+                th.setAttribute('scope', 'row');
+                th.innerText = index;
+
+                let bt1 = document.createElement('Button');
+                bt1.innerText = 'Delete';
+                bt1.onclick = deleteOrganization;
+                bt1.value = item.id;
+                td2.appendChild(bt1);
+
+
+
+                let bt2 = document.createElement('Button');
+                bt2.innerText = 'Edit';
+                bt2.onclick = editOrganization;
+                bt2.value = item.id;
+                td2.appendChild(bt2);
+
+                td1.innerText = item.name;
+                index = index + 1;
+             });
+         }
+     });
+     
+    function deleteOrganization(e)
+    {
+        const ans = confirm('Are you sure');
+
+        if (ans) {
+            const id = e.target.value;
+            fetch(`http://localhost:5000/api/organizations/${id}`, {
+                method: 'DELETE',
+            }).then(() => {
+                 location.href = '/organizations';
+            });
+        }
+    }
+
+    function editOrganization(e)
+    {
+        
+        location.href = '/organizationform?id=' + e.target.value;
+    }
+</script>

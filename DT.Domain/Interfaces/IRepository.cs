@@ -18,7 +18,7 @@ namespace DT.Domain.Interfaces
         public IQueryable<T> GetList<T, TKey>(Expression<Func<T, TKey>> orderBy) where T : class;
         public IQueryable<T> GetList<T, TKey>(OrderByType orderByType, Expression<Func<T, TKey>> orderBy) where T : class;
         public IQueryable<T> GetList<T>() where T : class;
-        public void Update<T>(T entity) where T : IEntity;
+        public void Update<T>(T entity) where T : Entity;
         public void Delete<T>(T entity) where T : class;
         public Task DeleteAsync<T>(T entity) where T : class;
         public void DeleteAll<T>(ICollection<T> collection) where T : class;

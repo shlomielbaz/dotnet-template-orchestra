@@ -1,0 +1,147 @@
+﻿@page
+@model DT.Web.Pages.UserFormModel
+@{
+    ViewData["Title"] = "User Form";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<form onsubmit="return send(event)" method="post">
+    <input type="hidden" name="id" value="" />
+    <div class="mb-3">
+        <label for="name-el" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" id="name-el" aria-describedby="name-help" required>
+        <div id="name-help" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="email-el" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" id="email-el" aria-describedby="email-help" required>
+        <div id="email-help" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="role-el" class="form-label">Role</label>
+        <select class="form-select" name="role" id="role-el" aria-describedby="role-help" required>
+            <option selected value="">Please pick an role</option>
+            <option value="1">Anonymous</option>
+            <option value="2">User</option>
+            <option value="3">Content Manager</option>
+            <option value="4">Admin</option>
+            <option value="5">Super</option>
+        </select>
+        <div id="role-help" class="form-text"></div>
+    </div>
+    <div class="mb-3">
+        <label for="organization-el" class="form-label">Organization</label>
+        <select class="form-select" name="organization" id="organization-el" aria-describedby="organization-help" required>
+            <option selected value="">Please pick an organization</option>
+        </select>
+        <div id="role-help" class="form-text"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" asp-area="" asp-page="/users">Cancel</a>
+</form>
+
+
+<script>
+    function add() {
+        const frm = document.forms[0];
+        fetch('http://localhost:5000/api/users', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: frm['name'].value,
+                email: frm['email'].value,
+                role: frm['role'].value,
+                organizationId: frm['organization'].value
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+                location.href = '/users';
+            });
+    }
+
+    function update() {
+        const frm = document.forms[0];
+
+        fetch(`http://localhost:5000/api/users/${frm['id'].value}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: frm['name'].value,
+                email: frm['email'].value,
+                role: frm['role'].value,
+                organizationId: frm['organization'].value,
+                id: frm['id'].value
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        }).then(() => {
+             location.href = '/users';
+         });
+    }
+
+    function send(e) {
+        e.preventDefault();
+        
+        let id = document.forms[0]['id'].value;
+
+        if(id != '') {
+            update();
+        }
+        else {
+            add();
+        }
+        
+        return false
+    }
+
+    window.onload = (event) => {
+        fetch('http://localhost:5000/api/organizations')
+            .then(response => response.json())
+            .then(data => {
+             if (data instanceof Array) {
+                 const selectBox = document.getElementById('organization-el');
+
+                 data.forEach(item => {
+                    let option = document.createElement("option");
+                    option.text = item.name;
+                    option.value = item.id;
+
+                    selectBox.add(option);
+                 });
+
+                 
+                if (location.search != '') {
+                    const id = location.search.substr(4);
+                    fetch(`http://localhost:5000/api/users/${id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            debugger;
+                            const frm = document.forms[0];
+                            frm['id'].value = id;
+                            frm['name'].value = data.name;
+                            frm['email'].value = data.email;
+
+                            const roles = document.getElementById("role-el");
+                            for (var i = 0; i < roles.options.length; ++i) {
+                                if (roles.options[i].value == data.role) {
+                                    roles.options[i].selected = true;
+                                    break;
+                                }
+                            }
+
+                            const orgs = document.getElementById("organization-el");
+                            for (var i = 0; i < orgs.options.length; ++i) {
+                                if (orgs.options[i].value == data.organizationId) {
+                                    orgs.options[i].selected = true;
+                                    break;
+                                }
+                            }
+                     });
+                }
+             }
+         });
+    };
+</script>

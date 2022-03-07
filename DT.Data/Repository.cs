@@ -103,7 +103,7 @@ namespace DT.Data
             return DataContext.Set<T>();
         }
 
-        public virtual void Update<T>(T entity) where T : IEntity
+        public virtual void Update<T>(T entity) where T : Entity
         {
             var entry = DataContext.Entry<T>(entity);
 

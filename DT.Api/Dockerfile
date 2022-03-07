@@ -7,6 +7,9 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["DT.Api/DT.Api.csproj", "DT.Api/"]
+COPY ["DT.Services/DT.Services.csproj", "DT.Services/"]
+COPY ["DT.Data/DT.Data.csproj", "DT.Data/"]
+COPY ["DT.Domain/DT.Domain.csproj", "DT.Domain/"]
 RUN dotnet restore "DT.Api/DT.Api.csproj"
 COPY . .
 WORKDIR "/src/DT.Api"

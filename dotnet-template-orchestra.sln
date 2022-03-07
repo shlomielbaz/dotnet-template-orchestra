@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DT.Domain", "DT.Domain\DT.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DT.Services", "DT.Services\DT.Services.csproj", "{7751A215-627E-4A85-9BB7-15A60856594A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DT.Utils", "DT.Utils\DT.Utils.csproj", "{A91FB6F8-D2D6-4C6E-ACD7-0345FED460EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7751A215-627E-4A85-9BB7-15A60856594A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7751A215-627E-4A85-9BB7-15A60856594A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7751A215-627E-4A85-9BB7-15A60856594A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A91FB6F8-D2D6-4C6E-ACD7-0345FED460EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91FB6F8-D2D6-4C6E-ACD7-0345FED460EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91FB6F8-D2D6-4C6E-ACD7-0345FED460EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91FB6F8-D2D6-4C6E-ACD7-0345FED460EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

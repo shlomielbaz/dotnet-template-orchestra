@@ -1,0 +1,82 @@
+﻿@page
+@model DT.Web.Pages.OrganizationFormModel
+@{
+    ViewData["Title"] = "Organization Form";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+<form onsubmit="return send(event)" method="post">
+    <input type="hidden" name="id" value="" />
+    <div class="mb-3">
+        <label for="name-el" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" id="name-el" aria-describedby="name-help" required>
+        <div id="name-help" class="form-text"></div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" asp-area="" asp-page="/organizations">Cancel</a>
+</form>
+
+
+<script>
+
+    function add() {
+        const frm = document.forms[0];
+        fetch('http://localhost:5000/api/organizations', {
+            method: 'POST',
+            body: JSON.stringify({
+                name: frm['name'].value
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        }).then(() => {
+             location.href = '/organizations';
+         });
+    }
+
+    function update() {
+        const frm = document.forms[0];
+        fetch(`http://localhost:5000/api/organizations/${frm['id'].value}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                name: frm['name'].value,
+                id: frm['id'].value
+            }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        }).then(() => {
+             location.href = '/organizations';
+         });
+    }
+
+    function send(e) {
+        e.preventDefault();
+        
+        let id = document.forms[0]['id'].value;
+
+        if(id != '') {
+            update();
+        }
+        else {
+            add();
+        }
+        
+        return false
+    }
+
+    window.onload = (event) => {
+        if (location.search != '') {
+            const id = location.search.substr(4);
+            fetch(`http://localhost:5000/api/organizations/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    const frm = document.forms[0];
+                    frm['id'].value = data.id;
+                    frm['name'].value = data.name;
+             });
+        }
+    };
+</script>
