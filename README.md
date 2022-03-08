@@ -3,7 +3,7 @@ This is a multi services app rely on dotnet core temlates apps, the following ex
 
 Docker-compose is used to orchestrate (run) multiple containers in a single command, it is also used to coordinate between the services (containers);
 
-![Docker-compose](/docker-compose.png)
+![Docker-compose](/docker-compose1.png)
 
 ### Application Folder Structure
 * **Web** - represent the presentation tier, contains the landing page and web apps navigations: "Home", "Privacy" and "Weather Forecast".
