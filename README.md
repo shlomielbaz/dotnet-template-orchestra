@@ -1,5 +1,5 @@
 # Orchestrate .NET core apps with docker-compose
-This is a multi services app rely on dotnet core temlates apps, the following example demonstrate a separation between the presentation tier to the application logics. 
+This is a multi services app rely on dotnet core temlates, the following example demonstrate a separation between the presentation tier to the application logics. 
 
 Docker-compose is used to orchestrate (run) multiple containers in a single command, it is also used to coordinate between the services (containers);
 
